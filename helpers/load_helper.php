@@ -11,12 +11,12 @@ if (!function_exists('_getConfig'))
 {
   function _getConfig()
   {
-    $CI =& get_instance();
-    $CI->load->config('load');
+    $ci =& get_instance();
+    $ci->load->config('load');
     $config = array();
-    $config['path_base'] = $CI->config->item('path_base');
-    $config['path_js']   = $CI->config->item('path_js');
-    $config['path_css']  = $CI->config->item('path_css');
+    $config['path_base'] = $ci->config->item('path_base');
+    $config['path_js']   = $ci->config->item('path_js');
+    $config['path_css']  = $ci->config->item('path_css');
     
     return $config;
   }
@@ -27,6 +27,7 @@ if(!function_exists('add_js')){
     {
         $str = '';
         $ci = &get_instance();
+        $ci->load->config('load');
 
         if ($position == 'header') {
           $header_js  = $ci->config->item('header_js');
@@ -77,6 +78,8 @@ if(!function_exists('add_css')){
     {
         $str = '';
         $ci = &get_instance();
+        $ci->load->config('load');
+
         $header_css = $ci->config->item('header_css');
 
         if(empty($file)){
@@ -104,12 +107,14 @@ if(!function_exists('print_header')){
     {
         $str = '';
         $ci = &get_instance();
+        $ci->load->config('load');
+
         $header_css = $ci->config->item('header_css') ? $ci->config->item('header_css') : array();
         $header_js  = $ci->config->item('header_js') ? $ci->config->item('header_js') : array();
-
         $config = _getConfig();
-        $path_css = base_url($config['path_base'].DS.$config['path_css']);
-        $path_js = base_url($config['path_base'].DS.$config['path_js']);
+
+        $path_css = $config['path_base'].DS.$config['path_css'];
+        $path_js = $config['path_base'].DS.$config['path_js'];
 
         foreach($header_css AS $file){
             $str .= '<link rel="stylesheet" href="'.$path_css.DS.$file.'" type="text/css" />'."\n";
@@ -128,10 +133,12 @@ if(!function_exists('print_footer')){
     {
         $str = '';
         $ci = &get_instance();
-        $footer_js  = $ci->config->item('footer_js') ? $ci->config->item('footer_js') : array();
+        $ci->load->config('load');
 
+        $footer_js  = $ci->config->item('footer_js') ? $ci->config->item('footer_js') : array();
         $config = _getConfig();
-        $path_js = base_url($config['path_base'].DS.$config['path_js']);
+
+        $path_js = $config['path_base'].DS.$config['path_js'];
 
         foreach($footer_js AS $file){
             $str .= '<script type="text/javascript" src="'.$path_js.DS.$file.'"></script>'."\n";
