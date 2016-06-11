@@ -23,13 +23,13 @@ if (!function_exists('_getConfig'))
 }
 
 if(!function_exists('add_js')){
-    function add_js($file='', $position = "footer")
+    function add_js($file='', $position = false)
     {
         $str = '';
         $ci = &get_instance();
         $ci->load->config('load');
 
-        if ($position == 'header') {
+        if ($position == true) {
           $header_js  = $ci->config->item('header_js');
 
           if(empty($file)){

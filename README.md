@@ -28,7 +28,7 @@ Usage
   
   To Header
 
-  <?php add_js('script.js', 'header'); ?>
+  <?php add_js('script.js', true); ?>
 
   To Footer
 
